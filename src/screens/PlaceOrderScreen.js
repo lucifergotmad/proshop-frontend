@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../actions/orderAction";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 const PlaceOrderScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -50,9 +51,9 @@ const PlaceOrderScreen = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/orders/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
     }
-    // eslint-disable-next-line
-  }, [success, history]);
+  }, [success, history, order._id, dispatch]);
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
